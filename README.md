@@ -11,6 +11,8 @@ A simple static web music player.
 
 [Demo](https://cf.derg.cc)
 
+![](res/sample3.png)
+
 ![](res/sample1.png)
 
 ![](res/sample2.png)
