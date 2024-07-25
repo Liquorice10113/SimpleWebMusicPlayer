@@ -1,0 +1,410 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <title></title>
+    <!-- <script src="jsmediatags.min.js"></script> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+    <div id="bg_img">
+
+    </div>
+    <div id="player_container">
+        <div id="cover">
+            <img id="cover_img" src="default.jpg">
+            <div id="play_list">
+            </div>
+        </div>
+        <div id="interactive_container">
+            <div id="info">
+                <div id="title">Title</div>
+                <div id="artist">Artist</div>
+            </div>
+            <div id="progress_timestamp">
+                <div id="current">0:00</div>
+                <div id="total">0:00</div>
+            </div>
+            <div id="progress_bar">
+                <input id="progress_bar_input" type="range" value="0" min="0" max="10000"
+                    onchange="change_t(this.value)" onmousedown="seeking=true" onmouseup="seeking=false"
+                    ontouchstart="seeking=true" ontouchend="seeking=false" touchcancel="seeking=false">
+            </div>
+            <div id="control">
+                <div class="btn backward" onclick="prev()">
+                    <svg viewBox="0 0 320 500">
+                        <path
+                            d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416L0 96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4l192 160L256 241l0-145c0-17.7 14.3-32 32-32s32 14.3 32 32l0 320c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-145-11.5 9.6-192 160z" />
+                    </svg>
+                </div>
+                <div id="play_btn" class="btn play" onclick="play_pause()">
+                    <svg viewBox="-20 -20 400 532">
+                        <path
+                            d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+                    </svg>
+                </div>
+                <div class="btn forward" onclick="next()">
+                    <svg viewBox="0 0 320 500">
+                        <path
+                            d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416L0 96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4l192 160L256 241l0-145c0-17.7 14.3-32 32-32s32 14.3 32 32l0 320c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-145-11.5 9.6-192 160z" />
+                    </svg>
+                </div>
+            </div>
+            <div id="toggle">
+                <div class="list_btn" onclick="toggle_list()">
+                    <svg viewBox="0 0 512 512">
+                        <path
+                            d="M64 144a48 48 0 1 0 0-96 48 48 0 1 0 0 96zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM64 464a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm48-208a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" />
+                    </svg>
+                </div>
+                <div class="toggle_btn" onclick="toggle_repeat()">
+                    <svg id="repeat_icon" viewBox="0 0 512 512">
+                        <path
+                            d="M0 224c0 17.7 14.3 32 32 32s32-14.3 32-32c0-53 43-96 96-96l160 0 0 32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9S320 19.1 320 32l0 32L160 64C71.6 64 0 135.6 0 224zm512 64c0-17.7-14.3-32-32-32s-32 14.3-32 32c0 53-43 96-96 96l-160 0 0-32c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6l0-32 160 0c88.4 0 160-71.6 160-160z" />
+                    </svg>
+                </div>
+                <div class="toggle_btn" onclick="toggle_shuffle()">
+                    <svg id="shuffle_icon" viewBox="0 0 512 512">
+                        <path
+                            d="M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6l0-32-32 0c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96l32 0 0-32c0-12.9 7.8-24.6 19.8-29.6zM164 282.7L204 336l-31.2 41.6C154.7 401.8 126.2 416 96 416l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6l0-32-32 0c-30.2 0-58.7-14.2-76.8-38.4L121.6 172.8c-6-8.1-15.5-12.8-25.6-12.8l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c30.2 0 58.7 14.2 76.8 38.4L326.4 339.2c6 8.1 15.5 12.8 25.6 12.8l32 0 0-32c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <audio id="a" src="" onended="song_end()" preload="auto"></audio>
+    <script>
+        var seeking = false;
+        var selected = 0;
+        var files = [
+            {% for mp3 in mp3s %}["{{mp3[0]}}", "{{mp3[1]}}", "{{mp3[2]}}", "{{mp3[3]}}"], {% endfor %}
+        ]
+
+        var repeat = false;
+        var shuffle = false;
+
+        const repeat_icon = document.getElementById("repeat_icon")
+        const shuffle_icon = document.getElementById("shuffle_icon")
+        const bar = document.getElementById("progress_bar_input")
+        function toggle_repeat() {
+            repeat = !repeat;
+            if (repeat) {
+                repeat_icon.style.fill = "var(--theme)"
+            }
+            else {
+                repeat_icon.style.fill = "#ffffff33"
+            }
+            shuffle_icon.style.fill = "#ffffff33"
+            shuffle = false;
+        }
+
+        function toggle_shuffle() {
+            shuffle = !shuffle;
+            if (shuffle) {
+                shuffle_icon.style.fill = "var(--theme)"
+            }
+            else {
+                shuffle_icon.style.fill = "#ffffff33"
+            }
+            repeat_icon.style.fill = "#ffffff33"
+            repeat = false;
+        }
+
+        function getRandomInt(n) {
+            return Math.floor(Math.random() * n);
+        }
+
+        function song_end() {
+            audio.currentTime = 0;
+            bar.value = 0;
+            if (shuffle) {
+                selected = getRandomInt(files.length)
+                load_mp3(files[selected])
+            }
+            else if (!repeat) {
+                selected += 1
+                selected = selected % files.length
+                load_mp3(files[selected])
+            }
+            play();
+        }
+
+        function next() {
+            // audio.pause()
+            audio.src = ""
+            if (shuffle) {
+                selected = getRandomInt(files.length)
+                load_mp3(files[selected])
+            }
+            else {
+                selected += 1
+                selected = selected % files.length
+                load_mp3(files[selected])
+            }
+            audio.currentTime = 0;
+            bar.value = 0;
+            play();
+        }
+
+        function prev() {
+            if (audio.currentTime < 10) {
+                audio.currentTime = 0;
+                bar.value = 0;
+                if (selected > 0) {
+                    selected -= 1
+                    load_mp3(files[selected])
+                }
+                play();
+            }
+            else {
+                audio.currentTime = 0;
+                bar.value = 0;
+            }
+
+        }
+
+        function ft(ctime) {
+            m = parseInt(ctime / 60)
+            s = parseInt(ctime % 60)
+            if (s < 10) {
+                s = '0' + s;
+            }
+            ctime = m + ":" + s
+            return ctime
+        }
+
+        audio = document.getElementById("a")
+        function time_update() {
+            const ct = document.getElementById("current")
+            const tt = document.getElementById("total")
+
+            ct.textContent = ft(audio.currentTime)
+            tt.textContent = ft(audio.duration)
+            if (!seeking) {
+                if (audio.duration)
+                    bar.value = audio.currentTime / audio.duration * 10000;
+                else bar.value = 0;
+
+            }
+        };
+        audio.ontimeupdate = time_update
+        audio.addEventListener('loadedmetadata', time_update);
+
+        function change_t(v) {
+            console.log(v)
+            var playing = false;
+            if (!audio.paused) {
+                audio.pause()
+                playing = true
+            }
+            audio.currentTime = v / 10000 * audio.duration;
+            bar.value = v
+            console.log(v / 10000 * audio.duration)
+            if (playing) {
+                audio.play()
+            }
+        }
+
+        function load_mp3(song) {
+            url = song[0]
+            cover = song[1]
+            title = song[2]
+            artist = song[3]
+
+            audio.src = url;
+            audio.load();
+            document.getElementById("cover_img").src = cover
+            document.getElementById("bg_img").style.background = 'url(' + cover + ')'
+            document.getElementById("title").innerText = title
+            document.getElementById("artist").innerText = artist
+
+
+
+            document.title = artist + " - " + title
+
+            updateMediaSession()
+
+            find_dom_color(cover).then(color => {
+                document.body.style.setProperty('--theme', color)
+                document.body.style.setProperty('--themeBG', color + "33")
+            })
+            Array.from(play_list.children).forEach((v, i) => {
+                console.log(v)
+                if (i == selected) {
+                    v.classList.add("list_item_selected")
+                    v.scrollIntoView({ behavior: "smooth",block: "nearest" })
+                }
+                else {
+                    v.classList.remove("list_item_selected")
+                }
+            })
+
+        }
+
+        function play_pause() {
+            const play_btn = document.getElementById("play_btn")
+            if (audio.paused) {
+                play()
+            }
+            else {
+                pause()
+            }
+        }
+
+        function pause() {
+            audio.pause()
+            play_btn.innerHTML = '<svg viewBox="-20 -20 400 532"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" /></svg>'
+        }
+
+        function play() {
+            audio.play()
+            play_btn.innerHTML = '<svg viewBox="0 0 320 512"><path d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-32 0z"/></svg>'
+        }
+
+        function resize() {
+            cover_width = document.getElementById("cover").offsetWidth;
+            document.getElementById("interactive_container").style.height = "calc(100vh - " + cover_width + "px)"
+        }
+        document.body.onresize = resize
+
+        function updateMediaSession() {
+            if ("mediaSession" in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: files[selected][2],
+                    artist: files[selected][3],
+                    artwork: [
+                        { src: files[selected][1], sizes: '1000x1000', type: 'image/png' }
+                    ]
+                });
+            }
+        }
+
+        const actionHandlers = [
+            ['play', () => { play_pause() }],
+            ['pause', () => { play_pause() }],
+            ['previoustrack', () => { prev() }],
+            ['nexttrack', () => { next() }],
+            ['seekbackward', (details) => { audio.currentTime -= 5 }],
+            ['seekforward', (details) => { audio.currentTime += 5 }],
+        ];
+
+        for (const [action, handler] of actionHandlers) {
+            try {
+                navigator.mediaSession.setActionHandler(action, handler);
+            } catch (error) {
+                console.log(`The media session action "${action}" is not supported yet.`);
+            }
+        }
+        navigator.mediaSession.setActionHandler('seekto', (details) => {
+            if (details.fastSeek && 'fastSeek' in audio) {
+                video.fastSeek(details.seekTime);
+                return;
+            }
+            audio.currentTime = details.seekTime;
+        });
+
+        function find_dom_color(img_url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.src = img_url;
+
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+                    const colorCounts = {};
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i];
+                        const g = data[i + 1];
+                        const b = data[i + 2];
+                        const rgb = `${r},${g},${b}`;
+
+                        if (colorCounts[rgb]) {
+                            colorCounts[rgb]++;
+                        } else {
+                            colorCounts[rgb] = 1;
+                        }
+                    }
+
+                    let dominantColor = '';
+                    let maxCount = 0;
+
+                    for (const color in colorCounts) {
+                        if (colorCounts[color] > maxCount) {
+                            maxCount = colorCounts[color];
+                            dominantColor = color;
+                        }
+                    }
+
+                    let [r, g, b] = dominantColor.split(',').map(Number);
+
+                    // Adjust brightness
+                    r = Math.max(1, r);
+                    g = Math.max(1, g);
+                    b = Math.max(1, b);
+                    while ((r + b + g) / 3 < 128) {
+                        r = Math.min(255, Math.round(r * 1.2));
+                        g = Math.min(255, Math.round(g * 1.2));
+                        b = Math.min(255, Math.round(b * 1.2));
+                    }
+
+
+                    const hex = '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
+                    resolve(hex);
+                };
+
+                img.onerror = function () {
+                    reject(new Error('Failed to load image'));
+                };
+            });
+        }
+
+        const play_list = document.getElementById("play_list")
+        function toggle_list() {
+            const cover_img = document.getElementById("cover_img")
+            if (play_list.style.display == 'block') {
+                play_list.style.display = 'none'
+                cover_img.style.opacity = 1
+            }
+            else {
+                play_list.style.display = 'block'
+                cover_img.style.opacity = 0
+            }
+        }
+
+        // Prepare play list
+        files.forEach((song, i) => {
+            url = song[0]
+            cover = song[1]
+            title = song[2]
+            artist = song[3]
+            new_node = document.createElement('div');
+            new_node.classList.add("list_item");
+            new_node.addEventListener('click', function () { select_mp3(i) })
+            new_node.innerHTML = `<img src="${cover}"><span>${artist} - ${title}</span>`
+
+            play_list.appendChild(new_node);
+        })
+
+        function select_mp3(i) {
+            selected = i
+            load_mp3(files[selected])
+            play()
+        }
+
+        load_mp3(files[selected])
+    </script>
+</body>
+
+</html>
