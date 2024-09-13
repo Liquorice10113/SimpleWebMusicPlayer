@@ -9,7 +9,7 @@ A simple static web music player.
 
 ## Demo
 
-[Demo](https://cf.derg.cc)
+[Demo](https://music-b1l.pages.dev/)
 
 ![](res/sample3.png)
 
