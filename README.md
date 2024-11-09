@@ -3,7 +3,7 @@
 A simple static web music player.
 
 - Dynamic theme color.
-- Doesn't required website backend.
+- Static web page.
 - Extract cover art and title/artist information (if the mp3 file contains any of that).
 - Media control integration.
 
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 
 - linux: run `build.sh`
 
-- or use terminal:
+- or use python:
 ```
 python ./build.py
 ```
