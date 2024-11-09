@@ -1,3 +1,4 @@
 jinja2
 mutagen
 pillow
+colorthief
