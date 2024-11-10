@@ -50,8 +50,7 @@ body {
     top: -10%;
     background: #000;
     transition: all 0.5s ease-in-out;
-    filter: brightness(30%) blur(50px);
-    background-size: cover;
+    filter: brightness(30%) blur(60px);
 }
 
 #player_container {
@@ -61,8 +60,8 @@ body {
     /* width: 100%; */
     max-width: 100%;
     max-height: 100%;
-    height: 80%;
-    width: 80%;
+    height: auto;
+    width: 100%;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -70,6 +69,7 @@ body {
 }
 
 #interactive_container {
+    position: relative;
     display: inline-block;
     height: 20rem;
     width: 20rem;
@@ -110,7 +110,7 @@ body {
     height: 3rem;
     left: 5%;
     margin-top: 0.5rem;
-    background-color: #ffffff33;
+    background-color: #ffffff22;
     color: #fff;
     border-radius: 0.4rem;
 }
@@ -124,23 +124,29 @@ body {
 
 .list_item span{
     display: inline-block;
-    font-weight: 600;
-    font-size: small;
+    font-weight: 500;
+    font-size: 1rem;
     margin-left: 3.5rem;
     height: 3rem;
     line-height: 3rem;
     width: auto;
+    text-wrap: nowrap;
 }
 
 .list_item_selected {
-    background-color: #999999cc;
+    background-color: var(--themeBG);
+}
+
+.list_item_selected span{
+    font-weight: 600;
+    font-size: 1.05rem;
 }
 
 #info {
     color: #fff;
     text-align: center;
-    height: 23%;
-    padding-top: 4%;
+    height: 6rem;
+    padding-top: 2rem;
     /* background-color: aqua; */
 }
 
@@ -150,7 +156,7 @@ body {
 
 #artist {
     font-size: 1rem;
-    /* color: #ffffff77; */
+    color: #ffffffbb;
 }
 
 input[type="range"] {
@@ -159,7 +165,6 @@ input[type="range"] {
     background-color: #fff;
     overflow: hidden;
     width: 90%;
-    margin-left: 5%;
     border: 0.1rem;
     margin-top: 1%;
 }
@@ -189,11 +194,10 @@ input[type="range"] {
 
 .list_btn {
     position: absolute;
-    /* color: white; */
-    top: 1rem;
+    top: 1.5rem;
     right: 2rem;
-    height: 1rem;
-    width: 1rem;
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 .list_btn svg {
@@ -251,16 +255,16 @@ input[type="range"] {
 .toggle_btn {
     text-align: center;
     display: inline-block;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 2rem;
+    width: 2rem;
     border-radius: 3rem;
     padding: 1rem;
 }
 
 .toggle_btn svg {
     fill: #ffffff33;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 2rem;
+    width: 2rem;
 }
 
 input[type='range'] {

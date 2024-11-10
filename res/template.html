@@ -9,9 +9,7 @@
 </head>
 
 <body>
-    <div id="bg_img">
-
-    </div>
+    <img id="bg_img" src=""></img>
     <div id="player_container">
         <div id="cover">
             <img id="cover_img" src="default.jpg">
@@ -218,7 +216,7 @@
             audio.src = url;
             audio.load();
             document.getElementById("cover_img").src = cover
-            document.getElementById("bg_img").style.background = 'url(' + cover + ')'
+            document.getElementById("bg_img").src = cover
             document.getElementById("title").innerText = title
             document.getElementById("artist").innerText = artist
 
@@ -264,12 +262,6 @@
             audio.play()
             play_btn.innerHTML = '<svg viewBox="0 0 320 512"><path d="M48 64C21.5 64 0 85.5 0 112L0 400c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48L48 64zm192 0c-26.5 0-48 21.5-48 48l0 288c0 26.5 21.5 48 48 48l32 0c26.5 0 48-21.5 48-48l0-288c0-26.5-21.5-48-48-48l-32 0z"/></svg>'
         }
-
-        function resize() {
-            cover_width = document.getElementById("cover").offsetWidth;
-            document.getElementById("interactive_container").style.height = "calc(100vh - " + cover_width + "px)"
-        }
-        document.body.onresize = resize
 
         function updateMediaSession() {
             if ("mediaSession" in navigator) {
